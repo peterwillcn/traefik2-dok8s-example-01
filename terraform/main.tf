@@ -1,4 +1,3 @@
-
 resource "digitalocean_tag" "kubernetes-cl01" {
   name = "kubernetes-cl01"
 }
@@ -12,7 +11,7 @@ resource "digitalocean_kubernetes_cluster" "cl01" {
     name       = "default"
     size       = "s-2vcpu-2gb"
     node_count = 3
-    tags = ["${digitalocean_tag.kubernetes-cl01.id}"]
+    tags       = ["${digitalocean_tag.kubernetes-cl01.id}"]
   }
 }
 
@@ -23,32 +22,32 @@ resource "digitalocean_certificate" "stepanvrany-cz" {
 }
 
 resource "digitalocean_loadbalancer" "kubernetes-cl01-public" {
-  name = "kubernetes-cl01-public"
-  region = "fra1"
-  enable_proxy_protocol = false
+  name                   = "kubernetes-cl01-public"
+  region                 = "fra1"
+  enable_proxy_protocol  = false
   redirect_http_to_https = true
 
   forwarding_rule {
-    entry_port = 80
+    entry_port     = 80
     entry_protocol = "http"
 
-    target_port = 30101
+    target_port     = 30101
     target_protocol = "http"
   }
 
   forwarding_rule {
-    entry_port = 443
+    entry_port     = 443
     entry_protocol = "http2"
 
-    target_port = 30101
+    target_port     = 30101
     target_protocol = "http"
     certificate_id  = "${digitalocean_certificate.stepanvrany-cz.id}"
   }
 
   healthcheck {
-    port = 30103
+    port     = 30103
     protocol = "http"
-    path = "/ping"
+    path     = "/ping"
   }
 
   droplet_tag = "${digitalocean_tag.kubernetes-cl01.id}"
@@ -59,8 +58,8 @@ resource "digitalocean_firewall" "kubernetes-cl01-public" {
   tags = ["${digitalocean_tag.kubernetes-cl01.id}"]
 
   inbound_rule {
-    protocol = "tcp"
-    port_range = "30101"
+    protocol                  = "tcp"
+    port_range                = "30101"
     source_load_balancer_uids = ["${digitalocean_loadbalancer.kubernetes-cl01-public.id}"]
   }
 }
