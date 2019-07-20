@@ -22,6 +22,8 @@ spec:
   - match: Host(`admin.stepanvrany.cz`) && PathPrefix(`/`)
     kind: Rule
     priority: 1
+    middlewares:
+      - name: admin-auth
     services:
     - name: traefik-admin
       port: 8080
