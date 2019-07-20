@@ -24,8 +24,6 @@ spec:
             - --api
             - --accesslog
             - --entrypoints.web.Address=:8000
-            - --entrypoints.web.proxyprotocol=true
-            - --entrypoints.web.proxyprotocol.insecure=true
             - --entrypoints.web.forwardedheaders.insecure=true
             - --providers.kubernetescrd
             - --ping
