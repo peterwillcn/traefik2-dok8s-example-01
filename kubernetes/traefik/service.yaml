@@ -13,9 +13,5 @@ spec:
       name: admin
       port: 8080
       nodePort: 30103
-    - protocol: TCP
-      name: websecure
-      port: 4443
-      nodePort: 30102
   selector:
     app: traefik

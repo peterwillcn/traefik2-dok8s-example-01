@@ -24,14 +24,16 @@ spec:
             - --api
             - --accesslog
             - --entrypoints.web.Address=:8000
-            - --entrypoints.websecure.Address=:4443
+            - --entrypoints.web.proxyprotocol=true
+            - --entrypoints.web.proxyprotocol.insecure=true
+            - --entrypoints.web.forwardedheaders.insecure=true
             - --providers.kubernetescrd
             - --ping
+            - --accesslog=true
+            - --log=true
           ports:
             - name: web
               containerPort: 8000
-            - name: websecure
-              containerPort: 4443
             - name: admin
               containerPort: 8080
 

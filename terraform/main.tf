@@ -25,8 +25,8 @@ resource "digitalocean_certificate" "stepanvrany-cz" {
 resource "digitalocean_loadbalancer" "kubernetes-cl01-public" {
   name = "kubernetes-cl01-public"
   region = "fra1"
-  enable_proxy_protocol = true
-  redirect_http_to_https = false
+  enable_proxy_protocol = false
+  redirect_http_to_https = true
 
   forwarding_rule {
     entry_port = 80
@@ -38,7 +38,7 @@ resource "digitalocean_loadbalancer" "kubernetes-cl01-public" {
 
   forwarding_rule {
     entry_port = 443
-    entry_protocol = "https"
+    entry_protocol = "http2"
 
     target_port = 30101
     target_protocol = "http"
@@ -60,7 +60,7 @@ resource "digitalocean_firewall" "kubernetes-cl01-public" {
 
   inbound_rule {
     protocol = "tcp"
-    port_range = "30101-30103"
+    port_range = "30101"
     source_load_balancer_uids = ["${digitalocean_loadbalancer.kubernetes-cl01-public.id}"]
   }
 }
