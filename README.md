@@ -33,8 +33,7 @@ export KUBECONFIG=$(pwd)/kubeconfig.yaml
 
 ```bash
 cd ../kubernetes/traefik
-kubectl apply -f crds.yaml
-kubectl apply -f sa.yaml
+kubectl apply -f traefik-prereqs.yaml
 kubectl apply -f deployment.yaml
 kubectl apply -f service.yaml
 kubectl apply -f service-admin.yaml
