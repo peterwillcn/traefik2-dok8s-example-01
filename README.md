@@ -9,6 +9,7 @@
 ## getting started
 
 **Edit domain name in Terraform manifests**
+
 This example is using [Let's Encrypt certificate](https://www.terraform.io/docs/providers/do/r/certificate.html#domains) so used domain name 
 must be managed by DigitalOcean.
 
