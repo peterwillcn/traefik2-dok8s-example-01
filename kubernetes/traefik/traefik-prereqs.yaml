@@ -136,3 +136,10 @@ subjects:
     name: traefik-ingress-controller
     namespace: default
 
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  namespace: default
+  name: traefik-ingress-controller
+
